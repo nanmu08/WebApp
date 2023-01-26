@@ -1,0 +1,61 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-md-6 offset-md-3">
+    <!-- Client Side Validation nonvalidate and validated-form and required用于检验是否输入为空，配合js function -->
+    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="campground[title]" value="<%= campground.title%>" required>
+        <!-- 此为响应反馈，当输入不为空时，给custom 反馈 -->
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" value="<%= campground.location%>" required>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input type="text" class="form-control" name="campground[price]" id="price" placeholder="0.0" aria-label="price" aria-describedby="price-label" value="<%= campground.price%>" required>
+        </div>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="campground[description]" required><%= campground.description %></textarea>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Add Images</label>
+        <input class="form-control" type="file" id="image" name="image" multiple>
+      </div>
+      <div class="mb-3">
+        <% campground.image.forEach(function(img, i) { %>
+          <!-- virtual method 具体见model campground d imageSchema -->
+          <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+          <div class="form-check-inline">
+            <input type="checkbox" id="img-<%= i %>" name="deleteImage[]" value="<%= img.filename %>">
+          </div>
+          <label for="img-<%= i %>">Delete?</label>
+        <% }) %>
+      </div>
+      <div class="mb-3">
+        <!-- button 加上  name = "button" 时，与定义的Joi 产生了冲突 ： button is not allowed -->
+        <button class="btn btn-success" type="submit">Update Campground</button>
+      </div>
+    </form>
+    <a href="/campgrounds/<%= campground._id %>">cancel edit and back</a>
+  </div>
+</div>

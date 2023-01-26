@@ -1,0 +1,58 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-md-6 offset-md-3">
+    <!-- Client Side Validation nonvalidate and validated-form and required用于检验是否输入为空，
+    配合js function  enctype="multipart/form-data" 用来使照片本片能够从web传到server中 -->
+    <form action="/campgrounds" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="campground[title]" required>
+        <!-- 此为响应反馈，当输入不为空时，给custom 反馈 -->
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" required>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input type="text" class="form-control" name="campground[price]" id="price" placeholder="0.0" aria-label="price" aria-describedby="price-label" required>
+        </div>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <!-- <div class="mb-3">
+        <label class="form-label" for="image">Image URL</label>
+        <input class="form-control" type="text" id="image" name="campground[image]" required>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div> -->
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload Images</label>
+        <input class="form-control" type="file" id="image" name="image" multiple>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
+        <div class="valid-feedback">
+          looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <!-- button 加上 name=button 时，与定义的Joi 产生了冲突 ： button is not allowed -->
+        <button class="btn btn-success" type="submit">Add Campground</button>
+      </div>
+    </form>
+    <a href="/campgrounds">cancel and back to all campgrounds</a>
+  </div>
+</div>
